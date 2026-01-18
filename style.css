@@ -280,3 +280,46 @@ footer { background: #000; padding: 30px; text-align: center; border-top: 2px so
 #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
 @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+/* --- ÉLŐ JÁTÉKOS SZÁMLÁLÓ --- */
+.player-count-container {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--primary-red);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.live-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #555; /* Alapból szürke, ha tölt */
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Ha online a szerver, ezt a class-t kapja meg JS-el */
+.live-dot.online {
+    background-color: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    animation: blink 2s infinite;
+}
+
+/* Ha offline */
+.live-dot.offline {
+    background-color: var(--primary-red);
+    box-shadow: 0 0 10px var(--primary-red);
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
