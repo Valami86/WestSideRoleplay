@@ -46,7 +46,7 @@ async function updatePlayerCount() {
 
     try {
         // Lekérdezzük a FiveM hivatalos API-ját
-        const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${SERVER_CODE}`);
+        const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${xgxbqr}`);
         
         if (!response.ok) throw new Error("Szerver nem elérhető");
 
