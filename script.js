@@ -39,7 +39,7 @@ async function updatePlayerCount() {
     const dot = document.querySelector(".live-dot");
 
     // Ha nincs beállítva kód, ne fusson
-    if (SERVER_CODE === 'IDE_ÍRD_A_KÓDOT' || SERVER_CODE === '') {
+    if (SERVER_CODE === 'xgxbqr' || SERVER_CODE === '') {
         statText.innerText = "Nincs CFX kód beállítva!";
         return;
     }
