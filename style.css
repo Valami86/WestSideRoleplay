@@ -257,3 +257,26 @@ footer { background: #000; padding: 30px; text-align: center; border-top: 2px so
 #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
 @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+/* --- HERO LOGÓ ANIMÁCIÓ --- */
+.hero-logo {
+    width: 280px; /* Itt állíthatod a méretet */
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 20px rgba(211, 31, 40, 0.4)); /* Kis piros ragyogás */
+    animation: floating 4s ease-in-out infinite;
+}
+
+/* Ez csinálja a lebegést */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); } /* 15 pixelt megy fel */
+    100% { transform: translateY(0px); }
+}
+
+/* Mobilon kicsit kisebb legyen a logó */
+@media (max-width: 768px) {
+    .hero-logo {
+        width: 180px;
+        margin-bottom: 20px;
+    }
+}
