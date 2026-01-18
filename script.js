@@ -2,7 +2,7 @@
 // IDE ÍRD BE A SZERVERED CFX KÓDJÁT! (Ez nem az IP, hanem a betűkód)
 // Ha nem tudod, keresd meg a szervert a FiveM listában, a link vége a kód.
 // Példa: 'qj854r'
-const SERVER_CODE = 'IDE_ÍRD_A_KÓDOT'; 
+const SERVER_CODE = 'xgxbqr'; 
 
 // Hamburger menü
 function toggleMenu() {
