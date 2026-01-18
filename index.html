@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WestSide Roleplay | FiveM Server</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- VÁLTOZÓK & ALAPOK --- */
+        :root {
+            --primary-red: #d31f28; /* A logó piros árnyalata */
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-white: #f0f0f0;
+            --neon-glow: 0 0 15px rgba(211, 31, 40, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+                              url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); /* Ide tehetsz saját GTA hátteret */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- NAVIGÁCIÓ --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Itt jelenítjük meg a képet logóként */
+        .logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 5px var(--primary-red));
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* --- HERO SZEKCIÓ --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 4px 4px 0px #000;
+        }
+        
+        .hero span {
+            color: var(--primary-red);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            color: #ccc;
+        }
+
+        /* --- ANIMÁLT GOMBOK --- */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            /* Döntött forma a sebességért */
+            transform: skew(-15deg);
+        }
+
+        /* A szöveget vissza kell dönteni, hogy olvasható maradjon */
+        .btn span {
+            display: block;
+            transform: skew(15deg); 
+        }
+
+        .btn:hover {
+            background: var(--primary-red);
+            box-shadow: 0 0 20px var(--primary-red);
+        }
+
+        .btn-secondary {
+            border-color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* --- IP MÁSOLÁS --- */
+        .ip-box {
+            margin-top: 30px;
+            background: rgba(0,0,0,0.6);
+            padding: 15px 30px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .ip-box:hover {
+            border-color: var(--primary-red);
+        }
+
+        .status-dot {
+            height: 12px;
+            width: 12px;
+            background-color: #00ff00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        /* --- TARTALOM SZEKCIÓK (Cards) --- */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-left: 5px solid var(--primary-red);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-red);
+        }
+        
+        .card i {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #000;
+            padding: 40px;
+            text-align: center;
+            border-top: 2px solid var(--primary-red);
+            margin-top: 50px;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- ÉRTESÍTÉS (Toast) --- */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--primary-red);
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1001;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 17px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        /* Mobil nézet */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { padding: 15px 20px; flex-direction: column; gap: 15px;}
+            .nav-links a { margin: 0 10px; font-size: 1rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="WS Logo"> 
+            WESTSIDE<span>RP</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Kezdőlap</a>
+            <a href="#about">Szerverről</a>
+            <a href="#rules">Szabályzat</a>
+            <a href="https://discord.gg/tediscordlink" target="_blank">Discord</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>WESTSIDE <span>ROLEPLAY</span></h1>
+        <p>A legmodernebb magyar FiveM szerver. Csatlakozz a családhoz, építsd a birodalmad.</p>
+        
+        <div class="btn-container">
+            <a href="fivem://connect/cfx.re/join/XXXXXX" class="btn">
+                <span><i class="fas fa-play"></i> Csatlakozás</span>
+            </a>
+            <a href="https://discord.gg/tediscordlink" class="btn btn-secondary">
+                <span><i class="fab fa-discord"></i> Discord</span>
+            </a>
+        </div>
+
+        <div class="ip-box" onclick="copyIP()">
+            <div class="status-dot"></div>
+            <span id="server-ip">connect.westsiderp.hu</span>
+            <i class="fas fa-copy" style="color: #666;"></i>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Közösség</h3>
+                <p>Erős, összetartó közösség, aktív admin csapattal. Nálunk a Roleplay minősége az első.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-car"></i>
+                <h3>Egyedi Járművek</h3>
+                <p>Több mint 200 import autó, realisztikus handlinggel és egyedi tuning lehetőségekkel.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-briefcase"></i>
+                <h3>Legális & Illegális</h3>
+                <p>Legyél rendőr, mentős, szerelő vagy urald az utcákat a bandáddal. A döntés a tiéd.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 WestSide Roleplay. Minden jog fenntartva.</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">Design by Gemini</p>
+    </footer>
+
+    <div id="toast">IP Cím másolva!</div>
+
+    <script>
+        // IP cím másoló funkció
+        function copyIP() {
+            var ipText = document.getElementById("server-ip").innerText;
+            navigator.clipboard.writeText(ipText).then(function() {
+                var x = document.getElementById("toast");
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }, function(err) {
+                console.error('Hiba a másoláskor: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
