@@ -23,17 +23,21 @@ body {
     font-family: 'Rajdhani', sans-serif;
     overflow-x: hidden;
     
-    /* --- ITT AZ ÚJ HÁTTÉRKÉP (16:9 cyberpunk/neon city) --- */
-    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                      url('https://images.wallpapersden.com/image/download/cyberpunk-2077-night-city-view_bGlnaGyUmZqaraWkpJRmbmdlrWZlbWU.jpg'); 
+    /* --- ÚJ HÁTTÉRKÉP BEÁLLÍTÁSA --- */
+    /* Mentsd le a képet new-bg.jpg néven a mappa gyökerébe! */
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+                      url('new-bg.jpg'); 
     /* --- --- */
 
     background-size: cover;
-    background-attachment: fixed; /* Hogy ne mozogjon görgetéskor */
+    /* Fontos: kivettem a 'fixed'-et, hogy a JS tudja mozgatni */
     background-position: center;
+    background-repeat: no-repeat;
+    
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background-position 0.1s ease-out; /* Finomítja a mozgást */
 }
 
 h1, h2, h3, h4 {
@@ -148,6 +152,25 @@ nav {
 .hero span { color: var(--primary-red); }
 .hero p { font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; color: #ccc; }
 
+/* --- HERO LOGÓ ANIMÁCIÓ (Előző kérésből) --- */
+.hero-logo {
+    width: 280px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 20px rgba(211, 31, 40, 0.4));
+    animation: floating 4s ease-in-out infinite;
+}
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+@media (max-width: 768px) {
+    .hero-logo {
+        width: 180px;
+        margin-bottom: 20px;
+    }
+}
+
 /* --- GOMBOK --- */
 .btn-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 .btn {
@@ -257,26 +280,3 @@ footer { background: #000; padding: 30px; text-align: center; border-top: 2px so
 #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
 @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
-/* --- HERO LOGÓ ANIMÁCIÓ --- */
-.hero-logo {
-    width: 280px; /* Itt állíthatod a méretet */
-    margin-bottom: 30px;
-    filter: drop-shadow(0 0 20px rgba(211, 31, 40, 0.4)); /* Kis piros ragyogás */
-    animation: floating 4s ease-in-out infinite;
-}
-
-/* Ez csinálja a lebegést */
-@keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); } /* 15 pixelt megy fel */
-    100% { transform: translateY(0px); }
-}
-
-/* Mobilon kicsit kisebb legyen a logó */
-@media (max-width: 768px) {
-    .hero-logo {
-        width: 180px;
-        margin-bottom: 20px;
-    }
-}
