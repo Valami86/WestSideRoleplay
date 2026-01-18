@@ -22,11 +22,14 @@ body {
     color: var(--text-white);
     font-family: 'Rajdhani', sans-serif;
     overflow-x: hidden;
-    /* Háttérkép */
+    
+    /* --- ITT AZ ÚJ HÁTTÉRKÉP (16:9 cyberpunk/neon city) --- */
     background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                      url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); 
+                      url('https://images.wallpapersden.com/image/download/cyberpunk-2077-night-city-view_bGlnaGyUmZqaraWkpJRmbmdlrWZlbWU.jpg'); 
+    /* --- --- */
+
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed; /* Hogy ne mozogjon görgetéskor */
     background-position: center;
     display: flex;
     flex-direction: column;
