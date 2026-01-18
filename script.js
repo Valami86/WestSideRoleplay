@@ -1,6 +1,5 @@
 /* --- BEÁLLÍTÁSOK --- */
-// A te szervered kódja:
-const SERVER_CODE = 'xgxbqr'; 
+const SERVER_CODE = 'xgxbqr'; // Itt a kódod beégetve
 
 // Hamburger menü
 function toggleMenu() {
@@ -31,17 +30,14 @@ document.addEventListener("mousemove", function(e) {
     }
 });
 
-// --- JÁTÉKOS SZÁMLÁLÓ JAVÍTVA ---
+// --- JÁTÉKOS SZÁMLÁLÓ (EGYSZERŰSÍTVE) ---
 async function updatePlayerCount() {
     const statText = document.getElementById("player-stat");
     const dot = document.querySelector(".live-dot");
 
     try {
-        // Közvetlen lekérdezés a FiveM API-ról
+        // Lekérdezés
         const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${SERVER_CODE}`);
-        
-        if (!response.ok) throw new Error("API hiba");
-
         const data = await response.json();
 
         // Ha van adat
@@ -49,18 +45,20 @@ async function updatePlayerCount() {
             const players = data.Data.clients;
             const maxPlayers = data.Data.sv_maxclients;
             
-            // Kiírás
             statText.innerText = `Online: ${players} / ${maxPlayers}`;
-            statText.style.color = "white"; // Szín visszaállítása
+            statText.style.color = "white"; 
             
             dot.classList.remove("offline");
             dot.classList.add("online");
         } else {
-            throw new Error("Nincs adat");
+            // Ha a szerver nem ad adatot (pl. offline)
+            statText.innerText = "Szerver Offline";
+            dot.classList.remove("online");
+            dot.classList.add("offline");
         }
 
     } catch (error) {
-        console.log("Szerver még nem elérhető vagy offline:", error);
+        console.log("API Hiba:", error);
         statText.innerText = "Szerver Offline";
         dot.classList.remove("online");
         dot.classList.add("offline");
