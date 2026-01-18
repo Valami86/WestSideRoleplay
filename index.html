@@ -21,7 +21,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 80px; /* Mobilon kisebb helyet hagyunk */
+            scroll-padding-top: 80px; 
         }
 
         * {
@@ -35,20 +35,20 @@
             color: var(--text-white);
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
                               url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); 
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        /* --- NAVIGÁCIÓ (Hamburgeres verzió) --- */
+        /* --- NAVIGÁCIÓ --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -99,7 +99,6 @@
             color: var(--primary-red);
         }
 
-        /* Discord gomb a menüben */
         .nav-discord {
             background: #5865F2;
             padding: 8px 15px !important;
@@ -113,7 +112,6 @@
             transform: skew(10deg);
         }
 
-        /* Hamburger Ikon (Alapból rejtve Desktopon) */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -121,48 +119,56 @@
             color: var(--text-white);
         }
 
-        /* --- MOBIL NÉZET (Hamburger aktiválás) --- */
+        /* --- MOBIL MENÜ ANIMÁCIÓ --- */
         @media (max-width: 768px) {
             .hamburger {
-                display: block; /* Mobilon megjelenik */
+                display: block;
             }
 
             .nav-links {
                 position: absolute;
-                top: 100%; /* A navbar aljához igazítva */
+                top: 100%; 
                 left: 0;
                 width: 100%;
                 background: #0f0f0f;
-                flex-direction: column; /* Egymás alá rendezés */
+                flex-direction: column;
                 align-items: center;
                 gap: 20px;
                 padding: 30px 0;
                 border-bottom: 2px solid var(--primary-red);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.8);
                 
-                /* Animációhoz kellő trükkök */
-                display: none; /* Alapból rejtve */
-                opacity: 0;
-                transition: opacity 0.3s ease;
+                /* ANIMÁCIÓ BEÁLLÍTÁSOK */
+                display: flex; /* Mindig flex, de elrejtjük */
+                visibility: hidden; /* Nem kattintható */
+                opacity: 0; /* Átlátszó */
+                transform: translateY(-20px); /* Kicsit feljebb van */
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rugalmas animáció */
             }
 
-            /* Amikor a JS hozzáadja az 'active' osztályt */
+            /* Amikor aktív */
             .nav-links.active {
-                display: flex;
+                visibility: visible;
                 opacity: 1;
+                transform: translateY(0); /* Helyére csúszik */
             }
 
             .nav-links a {
                 margin: 0;
                 font-size: 1.3rem;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
             }
             
             .nav-discord {
                 margin-left: 0;
                 margin-top: 10px;
+                width: auto;
             }
         }
 
-        /* --- HERO SZEKCIÓ --- */
+        /* --- HERO --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -252,11 +258,11 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
         }
 
-        /* --- SZEKCIÓK --- */
+        /* --- SZEKCIÓK ÁLTALÁNOS --- */
         .section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
         .section-title {
-            text-align: center; font-size: 2rem; margin-bottom: 40px;
-            border-bottom: 2px solid var(--primary-red); display: inline-block;
+            text-align: center; font-size: 2rem; margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary-red); display: inline-block; padding-bottom: 10px;
         }
 
         .grid-container {
@@ -266,11 +272,77 @@
         .card {
             background: var(--card-bg); padding: 25px;
             border-left: 4px solid var(--primary-red);
+            transition: transform 0.3s;
         }
+        .card:hover { transform: translateY(-5px); background: #222; }
 
         .card h3 { color: var(--primary-red); margin-bottom: 10px; }
         .card i { font-size: 1.8rem; margin-bottom: 15px; color: #555; }
 
+        /* --- VEZETŐSÉG (TEAM) STYLE --- */
+        .staff-card {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid #333;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .staff-card:hover {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(211, 31, 40, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .staff-avatar {
+            width: 100px;
+            height: 100px;
+            background: #333;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            border: 3px solid var(--primary-red);
+        }
+
+        .staff-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .staff-role {
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* Külön színek a rangoknak */
+        .role-owner {
+            background: rgba(211, 31, 40, 0.2);
+            color: var(--primary-red);
+            border: 1px solid var(--primary-red);
+        }
+
+        .role-admin {
+            background: rgba(88, 101, 242, 0.2); /* Discord kék */
+            color: #5865F2;
+            border: 1px solid #5865F2;
+        }
+
+        /* --- SZABÁLYZAT --- */
         .rules-list {
             list-style: none; background: var(--card-bg); padding: 20px;
             border-right: 4px solid var(--primary-red);
@@ -295,12 +367,6 @@
 
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
-        /* EXTRA MOBIL FIXEK */
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; }
-            .ip-box { flex-direction: column; gap: 5px; text-align: center; }
-        }
     </style>
 </head>
 <body>
@@ -318,7 +384,7 @@
         <div class="nav-links" id="navLinks">
             <a href="#home" onclick="toggleMenu()">Kezdőlap</a>
             <a href="#about" onclick="toggleMenu()">Szerverről</a>
-            <a href="#rules" onclick="toggleMenu()">Szabályzat</a>
+            <a href="#team" onclick="toggleMenu()">Vezetőség</a> <a href="#rules" onclick="toggleMenu()">Szabályzat</a>
             <a href="https://discord.gg/tediscordlink" target="_blank" class="nav-discord">
                 <span>Discord</span>
             </a>
@@ -368,6 +434,37 @@
         </div>
     </section>
 
+    <section class="section" id="team">
+        <div style="text-align: center;">
+            <h2 class="section-title">Vezetőség</h2>
+        </div>
+        <div class="grid-container">
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h4 class="staff-name">Skywalker</h4>
+                <span class="staff-role role-owner">Tulajdonos</span>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h4 class="staff-name">Jézus</h4>
+                <span class="staff-role role-owner">Tulajdonos</span>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h4 class="staff-name">DarkinoM</h4>
+                <span class="staff-role role-admin">Admin Controller</span>
+            </div>
+        </div>
+    </section>
+
     <section class="section" id="rules">
         <div style="text-align: center;">
             <h2 class="section-title">Alap Szabályok</h2>
@@ -392,13 +489,11 @@
     <div id="toast">IP Cím másolva!</div>
 
     <script>
-        // Hamburger menü nyitás/zárás
         function toggleMenu() {
             var nav = document.getElementById("navLinks");
             nav.classList.toggle("active");
         }
 
-        // IP másolás
         function copyIP() {
             var ipText = document.getElementById("server-ip").innerText;
             navigator.clipboard.writeText(ipText).then(function() {
