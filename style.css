@@ -1,0 +1,229 @@
+/* --- VÁLTOZÓK & ALAPOK --- */
+:root {
+    --primary-red: #d31f28; 
+    --dark-bg: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --text-white: #f0f0f0;
+    --neon-glow: 0 0 15px rgba(211, 31, 40, 0.6);
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Kivettük a padding-topot, mert külön oldalak lesznek */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-white);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    /* Háttérkép */
+    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
+                      url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); 
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* --- NAVIGÁCIÓ --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--primary-red);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--primary-red);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 40px;
+    filter: drop-shadow(0 0 5px var(--primary-red));
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    position: relative;
+    padding: 5px 10px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--primary-red);
+}
+
+.nav-discord {
+    background: #5865F2;
+    padding: 8px 15px !important;
+    border-radius: 4px;
+    margin-left: 30px;
+    transform: skew(-10deg);
+}
+
+.nav-discord span {
+    display: inline-block;
+    transform: skew(10deg);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: var(--text-white);
+}
+
+/* --- MOBIL MENÜ --- */
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    .nav-links {
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: #0f0f0f; flex-direction: column; align-items: center;
+        gap: 20px; padding: 30px 0; border-bottom: 2px solid var(--primary-red);
+        visibility: hidden; opacity: 0; transform: translateY(-20px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .nav-links.active { visibility: visible; opacity: 1; transform: translateY(0); }
+    .nav-links a { margin: 0; font-size: 1.3rem; width: 100%; text-align: center; }
+    .nav-discord { margin-left: 0; margin-top: 10px; width: auto; }
+}
+
+/* --- HERO & CONTENT --- */
+.page-content {
+    margin-top: 100px; /* Hely a fejléc alatt */
+    flex: 1;
+}
+
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h1 { font-size: 3.5rem; margin-bottom: 10px; text-shadow: 4px 4px 0px #000; line-height: 1.1; }
+.hero span { color: var(--primary-red); }
+.hero p { font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; color: #ccc; }
+
+/* --- GOMBOK --- */
+.btn-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+.btn {
+    padding: 15px 30px; font-size: 1.1rem; font-weight: bold; text-decoration: none;
+    color: white; background: rgba(0,0,0,0.5); border: 2px solid var(--primary-red);
+    transition: 0.4s; cursor: pointer; text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif; transform: skew(-15deg); display: inline-block;
+}
+.btn span { display: block; transform: skew(15deg); }
+.btn:hover { background: var(--primary-red); box-shadow: 0 0 20px var(--primary-red); }
+.btn-secondary { border-color: #fff; }
+.btn-secondary:hover { background: #fff; color: #000; }
+
+/* --- IP BOX --- */
+.ip-box {
+    margin-top: 30px; background: rgba(0,0,0,0.6); padding: 15px 25px;
+    border: 1px solid #333; border-radius: 5px; display: flex; align-items: center;
+    gap: 10px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+}
+.ip-box:hover { border-color: var(--primary-red); }
+.status-dot {
+    height: 10px; width: 10px; background-color: #00ff00; border-radius: 50%;
+    box-shadow: 0 0 10px #00ff00; animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
+}
+
+/* --- KÁRTYÁK & GRID --- */
+.section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.section-title {
+    text-align: center; font-size: 2rem; margin-bottom: 50px;
+    border-bottom: 2px solid var(--primary-red); display: inline-block; padding-bottom: 10px;
+}
+.grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.card {
+    background: var(--card-bg); padding: 25px; border-left: 4px solid var(--primary-red);
+    transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-5px); background: #222; }
+.card h3 { color: var(--primary-red); margin-bottom: 10px; }
+.card i { font-size: 1.8rem; margin-bottom: 15px; color: #555; }
+
+/* --- STAFF STÍLUS --- */
+.staff-card {
+    background: rgba(20, 20, 20, 0.9); padding: 30px 20px; text-align: center;
+    border: 1px solid #333; border-radius: 10px; transition: 0.4s;
+}
+.staff-card:hover {
+    border-color: var(--primary-red); box-shadow: 0 0 20px rgba(211, 31, 40, 0.2); transform: translateY(-10px);
+}
+.staff-avatar {
+    width: 100px; height: 100px; background: #333; border-radius: 50%;
+    margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; color: var(--primary-red); border: 3px solid var(--primary-red);
+}
+.staff-name { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 5px; }
+.staff-role {
+    font-family: 'Rajdhani', sans-serif; text-transform: uppercase; font-size: 0.9rem;
+    letter-spacing: 1px; padding: 5px 15px; border-radius: 20px; display: inline-block; font-weight: bold;
+}
+.role-owner { background: rgba(211, 31, 40, 0.2); color: var(--primary-red); border: 1px solid var(--primary-red); }
+.role-admin { background: rgba(88, 101, 242, 0.2); color: #5865F2; border: 1px solid #5865F2; }
+
+/* --- SZABÁLYZAT LISTA --- */
+.rules-list { list-style: none; background: var(--card-bg); padding: 30px; border-right: 4px solid var(--primary-red); }
+.rules-list li { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+.rules-list strong { color: var(--primary-red); display: block; margin-bottom: 5px; font-size: 1.2rem; }
+
+/* --- FOOTER & TOAST --- */
+footer { background: #000; padding: 30px; text-align: center; border-top: 2px solid var(--primary-red); margin-top: auto; }
+#toast {
+    visibility: hidden; min-width: 250px; background-color: var(--primary-red); color: #fff;
+    text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 1001;
+    left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 17px;
+}
+#toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+@keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+@keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
