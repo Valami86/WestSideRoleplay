@@ -1,14 +1,14 @@
 /* --- BEÁLLÍTÁSOK --- */
-// A szervered CFX kódja:
+// A te szervered kódja:
 const SERVER_CODE = 'xgxbqr'; 
 
-// Hamburger menü nyitás/zárás
+// Hamburger menü
 function toggleMenu() {
     var nav = document.getElementById("navLinks");
     nav.classList.toggle("active");
 }
 
-// IP cím másolása
+// IP másolás
 function copyIP() {
     var ipText = document.getElementById("server-ip").innerText;
     navigator.clipboard.writeText(ipText).then(function() {
@@ -16,11 +16,11 @@ function copyIP() {
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }, function(err) {
-        console.error('Hiba a másoláskor: ', err);
+        console.error('Hiba: ', err);
     });
 }
 
-// Háttér effekt (mozgatás egérre)
+// Háttér effekt
 document.addEventListener("mousemove", function(e) {
     if (window.innerWidth > 768) {
         const moveFactor = 20; 
@@ -31,41 +31,36 @@ document.addEventListener("mousemove", function(e) {
     }
 });
 
-// --- JÁTÉKOS SZÁMLÁLÓ ---
+// --- JÁTÉKOS SZÁMLÁLÓ JAVÍTVA ---
 async function updatePlayerCount() {
     const statText = document.getElementById("player-stat");
     const dot = document.querySelector(".live-dot");
 
-    // Ellenőrzés, hogy a kód be van-e írva (most már be van!)
-    if (!SERVER_CODE || SERVER_CODE === 'IDE_ÍRD_A_KÓDOT') {
-        statText.innerText = "Nincs CFX kód beállítva!";
-        statText.style.color = "red";
-        return;
-    }
-
     try {
+        // Közvetlen lekérdezés a FiveM API-ról
         const response = await fetch(`https://servers-frontend.fivem.net/api/servers/single/${SERVER_CODE}`);
         
-        if (!response.ok) throw new Error("Szerver nem elérhető");
+        if (!response.ok) throw new Error("API hiba");
 
         const data = await response.json();
-        
-        // Ha offline a szerver vagy nincs adat
-        if (!data || !data.Data) {
-             throw new Error("Nincs adat");
+
+        // Ha van adat
+        if (data && data.Data) {
+            const players = data.Data.clients;
+            const maxPlayers = data.Data.sv_maxclients;
+            
+            // Kiírás
+            statText.innerText = `Online: ${players} / ${maxPlayers}`;
+            statText.style.color = "white"; // Szín visszaállítása
+            
+            dot.classList.remove("offline");
+            dot.classList.add("online");
+        } else {
+            throw new Error("Nincs adat");
         }
 
-        const players = data.Data.clients;
-        const maxPlayers = data.Data.sv_maxclients;
-
-        statText.innerText = `Online: ${players} / ${maxPlayers}`;
-        statText.style.color = "white"; // Visszaállítjuk fehérre, ha jó
-        
-        dot.classList.remove("offline");
-        dot.classList.add("online");
-
     } catch (error) {
-        console.error("Hiba:", error);
+        console.log("Szerver még nem elérhető vagy offline:", error);
         statText.innerText = "Szerver Offline";
         dot.classList.remove("online");
         dot.classList.add("offline");
