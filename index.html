@@ -12,11 +12,16 @@
     <style>
         /* --- VÁLTOZÓK & ALAPOK --- */
         :root {
-            --primary-red: #d31f28; /* A logó piros árnyalata */
+            --primary-red: #d31f28; 
             --dark-bg: #0f0f0f;
             --card-bg: #1a1a1a;
             --text-white: #f0f0f0;
             --neon-glow: 0 0 15px rgba(211, 31, 40, 0.6);
+        }
+
+        html {
+            scroll-behavior: smooth; /* Ez csinálja a finom görgetést */
+            scroll-padding-top: 100px; /* Hogy a fix menü ne takarja ki a címet */
         }
 
         * {
@@ -30,8 +35,9 @@
             color: var(--text-white);
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
+            /* Ideiglenes háttérkép - cserélhető */
             background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
-                              url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); /* Ide tehetsz saját GTA hátteret */
+                              url('https://wallpapers.com/images/hd/gta-5-background-1920-x-1080-363e17424074218c.jpg'); 
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -48,13 +54,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background: rgba(0,0,0,0.8);
+            padding: 15px 50px;
+            background: rgba(15, 15, 15, 0.95); /* Sötétebb háttér az olvashatóságért */
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
+            top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--primary-red);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
 
         .logo {
@@ -64,12 +72,17 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none; /* Ha a logóra kattintanak */
         }
         
-        /* Itt jelenítjük meg a képet logóként */
         .logo img {
             height: 50px;
             filter: drop-shadow(0 0 5px var(--primary-red));
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
         }
 
         .nav-links a {
@@ -80,22 +93,59 @@
             font-size: 1.1rem;
             transition: 0.3s;
             position: relative;
+            padding: 5px 10px;
         }
 
+        /* Hover effekt a menü gombokra */
         .nav-links a:hover {
             color: var(--primary-red);
             text-shadow: var(--neon-glow);
         }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Discord gomb a menüben kiemelve */
+        .nav-discord {
+            background: #5865F2;
+            padding: 8px 15px !important;
+            border-radius: 4px;
+            margin-left: 30px;
+            transform: skew(-10deg);
+        }
+        
+        .nav-discord span {
+            display: inline-block;
+            transform: skew(10deg);
+        }
+
+        .nav-discord:hover {
+            background: #4752c4;
+            color: white !important;
+            box-shadow: 0 0 10px #5865F2;
+        }
 
         /* --- HERO SZEKCIÓ --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh; /* Teljes képernyő */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: 120px 20px 20px 20px; /* Felső padding a fix menü miatt */
         }
 
         .hero h1 {
@@ -115,7 +165,7 @@
             color: #ccc;
         }
 
-        /* --- ANIMÁLT GOMBOK --- */
+        /* --- ANIMÁLT NAGY GOMBOK --- */
         .btn-container {
             display: flex;
             gap: 20px;
@@ -129,19 +179,16 @@
             font-weight: bold;
             text-decoration: none;
             color: white;
-            background: transparent;
+            background: rgba(0,0,0,0.5);
             border: 2px solid var(--primary-red);
-            position: relative;
-            overflow: hidden;
             transition: 0.4s;
             cursor: pointer;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
-            /* Döntött forma a sebességért */
             transform: skew(-15deg);
+            display: inline-block;
         }
 
-        /* A szöveget vissza kell dönteni, hogy olvasható maradjon */
         .btn span {
             display: block;
             transform: skew(15deg); 
@@ -150,6 +197,7 @@
         .btn:hover {
             background: var(--primary-red);
             box-shadow: 0 0 20px var(--primary-red);
+            transform: skew(-15deg) translateY(-3px);
         }
 
         .btn-secondary {
@@ -186,13 +234,29 @@
             background-color: #00ff00;
             border-radius: 50%;
             box-shadow: 0 0 10px #00ff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
         }
 
-        /* --- TARTALOM SZEKCIÓK (Cards) --- */
+        /* --- TARTALOM SZEKCIÓK --- */
         .section {
-            padding: 80px 20px;
+            padding: 60px 20px;
             max-width: 1200px;
             margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary-red);
+            display: inline-block;
+            padding-bottom: 10px;
         }
 
         .grid-container {
@@ -206,12 +270,11 @@
             padding: 30px;
             border-left: 5px solid var(--primary-red);
             transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-10px);
+            background: #222;
         }
 
         .card h3 {
@@ -225,6 +288,25 @@
             margin-bottom: 20px;
             color: #555;
         }
+        
+        /* SZABÁLYZAT LISTA STYLE */
+        .rules-list {
+            list-style: none;
+            background: var(--card-bg);
+            padding: 40px;
+            border-right: 5px solid var(--primary-red);
+        }
+        
+        .rules-list li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .rules-list li strong {
+            color: var(--primary-red);
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -233,11 +315,6 @@
             text-align: center;
             border-top: 2px solid var(--primary-red);
             margin-top: 50px;
-        }
-
-        footer p {
-            color: #666;
-            font-size: 0.9rem;
         }
 
         /* --- ÉRTESÍTÉS (Toast) --- */
@@ -277,22 +354,26 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             nav { padding: 15px 20px; flex-direction: column; gap: 15px;}
-            .nav-links a { margin: 0 10px; font-size: 1rem;}
+            .nav-links { flex-direction: column; gap: 10px; }
+            .nav-links a { margin: 0; }
+            .nav-discord { margin: 10px 0 0 0; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">
+        <a href="#home" class="logo">
             <img src="logo.png" alt="WS Logo"> 
             WESTSIDE<span>RP</span>
-        </div>
+        </a>
         <div class="nav-links">
             <a href="#home">Kezdőlap</a>
             <a href="#about">Szerverről</a>
             <a href="#rules">Szabályzat</a>
-            <a href="https://discord.gg/tediscordlink" target="_blank">Discord</a>
+            <a href="https://discord.gg/tediscordlink" target="_blank" class="nav-discord">
+                <span>Discord</span>
+            </a>
         </div>
     </nav>
 
@@ -317,6 +398,9 @@
     </section>
 
     <section class="section" id="about">
+        <div style="text-align: center;">
+            <h2 class="section-title">Miért minket válassz?</h2>
+        </div>
         <div class="grid-container">
             <div class="card">
                 <i class="fas fa-users"></i>
@@ -329,16 +413,33 @@
                 <p>Több mint 200 import autó, realisztikus handlinggel és egyedi tuning lehetőségekkel.</p>
             </div>
             <div class="card">
-                <i class="fas fa-briefcase"></i>
-                <h3>Legális & Illegális</h3>
-                <p>Legyél rendőr, mentős, szerelő vagy urald az utcákat a bandáddal. A döntés a tiéd.</p>
+                <i class="fas fa-skull"></i>
+                <h3>Banda Élet</h3>
+                <p>Területszerzés, drogkészítés, rablások. A WestSide utcáin csak az erősek maradnak talpon.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="section" id="rules">
+        <div style="text-align: center;">
+            <h2 class="section-title">Alap Szabályok</h2>
+        </div>
+        <ul class="rules-list">
+            <li><strong>1. Powergaming (PG):</strong> Tilos olyan dolgot tenni, ami a valóságban lehetetlen.</li>
+            <li><strong>2. Metagaming (MG):</strong> OOC információ felhasználása IC célokra szigorúan tilos.</li>
+            <li><strong>3. Deathmatch (DM):</strong> Ok nélküli ölés tilos. Mindennek legyen RP előzménye.</li>
+            <li><strong>4. Revenge Kill (RK):</strong> Ha meghaltál, nem emlékszel a halálod körülményeire és nem állhatsz bosszút.</li>
+            <li><strong>5. Tisztelet:</strong> Tiszteld játékostársaidat és az adminokat. A toxikus viselkedést nem tűrjük.</li>
+        </ul>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="https://discord.gg/tediscordlink" class="btn btn-secondary" style="font-size: 1rem;">
+                <span><i class="fas fa-book"></i> Teljes szabályzat a Discordon</span>
+            </a>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2024 WestSide Roleplay. Minden jog fenntartva.</p>
-        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">Design by Gemini</p>
     </footer>
 
     <div id="toast">IP Cím másolva!</div>
